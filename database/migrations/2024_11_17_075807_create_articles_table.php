@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->text('image_share')->nullable();
             $table->text('summary')->nullable();
             $table->text('content')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->nullable()->comment('1: Display, 2: Hidden');
             $table->integer('group_id')->nullable();
             $table->text('keywords')->nullable();
             $table->text('description')->nullable();
