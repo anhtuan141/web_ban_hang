@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/home', function () {
+    return view('admin.pages.index');
 });
+
+Route::resource('users', UserController::class);
+
+// Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+// Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+
+// Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+
+// Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+
+// Route::put('/users/edit/{id}', [UserController::class, 'update'])->name('users.update');
+
+// Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
