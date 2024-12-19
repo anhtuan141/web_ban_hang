@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequests\CreateUserRequest;
+use App\Http\Requests\UserRequests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -71,7 +72,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = $this->userService->getUserDetail($id);
+        return view('admin.pages.users.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -81,9 +85,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $dataValidate = $request->validated();
+        // dd($request->all()); // Xem tất cả dữ liệu được gửi từ form
+        $this->userService->updateUser($dataValidate, $id);
+        return redirect()->route('users.index')->with('success', 'User updated successfully!');
     }
 
     /**
@@ -94,6 +101,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->userService->deleteUser($id);
+        return redirect()->route('users.index')->with('success', 'User delete successfully!');
     }
 }
