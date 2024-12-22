@@ -31,7 +31,7 @@
                                         : '<span class="badge bg-label-danger me-1">lock</span>' !!}
                                     </td>
                                     <td>
-                                        <div class="dropdown">
+                                        {{-- <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                                 <i class="bx bx-dots-vertical-rounded"></i>
@@ -44,6 +44,16 @@
                                                         class="bx bx-trash me-1"></i>
                                                     Delete</a>
                                             </div>
+                                        </div> --}}
+                                        <div class="d-flex align-items-center">
+                                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                            <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                class="mx-2">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button stype="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                            <a href="{{ route('users.show', $user->id) }}" class="btn btn-success">Infor</a>
                                         </div>
                                     </td>
                                 </tr>

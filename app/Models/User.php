@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'users';
-
+    protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -59,8 +60,14 @@ class User extends Authenticatable
      */
     public static function getUserList()
     {
-        return self::where([
-            'status' => 1,
-        ])->get();
+        // return self::where([
+        //     'status' => 1,
+        // ])->get();
+        return self::all();
+    }
+
+    public static function getUserDetail($id)
+    {
+        return self::findOrFail($id);
     }
 }
